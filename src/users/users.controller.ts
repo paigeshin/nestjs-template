@@ -9,7 +9,7 @@ import {
   Patch,
   NotFoundException,
   Session,
-  UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -18,12 +18,11 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/users.dto';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { User } from './users.entity';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto) //this way, Serialize Rules are applied to all handlers inside controller
-@UseInterceptors(CurrentUserInterceptor) //attach custom decorator thorugh interceptor
 export class UsersController {
   constructor(
     private usersService: UsersService,
@@ -56,6 +55,7 @@ export class UsersController {
 
   // Currently signed user
   @Get('/whoami')
+  @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() user: User) {
     return user;
   }
