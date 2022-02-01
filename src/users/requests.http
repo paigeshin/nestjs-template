@@ -4,8 +4,17 @@ POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-    "email": "123123@gmail.com",
-    "password": "abcdefg"
+    "email": "32432@gmail.com",
+    "password": "fdsafasdfas"
+}
+
+### Signin 
+POST http://localhost:3000/auth/signin 
+content-type: application/json
+
+{
+    "email": "32432@gmail.com",
+    "password": "fdsafasdfas"
 }
 
 ### Find a particular user with a given ID 
