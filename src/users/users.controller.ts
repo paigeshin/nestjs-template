@@ -14,12 +14,12 @@ import {
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './users.service';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dtos/users.dto';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './users.entity';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto) //this way, Serialize Rules are applied to all handlers inside controller
@@ -28,30 +28,6 @@ export class UsersController {
     private usersService: UsersService,
     private authService: AuthService,
   ) {}
-
-  // Just for example, set session to color
-  /*
-  @Get('/colors/:color')
-  setColor(@Param('color') color: string, @Session() session: any) {
-    session.color = color;
-  }
-  */
-
-  // Just for example, decode session.color and return it
-  /*
-  @Get('/colors')
-  getColor(@Session() session: any) {
-    return session.color;
-  }
-  */
-
-  // How to use session practically
-  /*
-  @Get('/whoami')
-  whoAmI(@Session() session: any) {
-    return this.usersService.findOne(session.userId);
-  }
-  */
 
   // Currently signed user
   @Get('/whoami')
